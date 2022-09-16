@@ -34,33 +34,29 @@ def to_cumulative(stream: list):
 
 
 def to_cumulative_delayed(stream: list, quantity_block: int):
-  stream=sorted(stream, key=lambda s: s.split(',')[0]+s.split(',')[1])
-  stream=[s.split(',') for s in stream]
-  res_dict=dict()
+    temp = sorted([i.split(',') for i in stream], key=lambda x: (x[0], x[1]))
+    ticker_dict = {}
+    res = []
+    for i in temp:
+        if i[1] not in ticker_dict:
+            ticker_dict[i[1]] = {}
+            ticker_dict[i[1]]['q'] = 0
+            ticker_dict[i[1]]['p'] = 0
 
-  res=[]
-  for s in stream:
-    if s[1] not in res_dict.keys():
-      res_dict[s[1]]=dict()
-      res_dict[s[1]]['t']='00:00'
-      res_dict[s[1]]['q']=0
-      res_dict[s[1]]['v']=0
-  
-  #for num in range(int())
-    single_count=int(s[2])
-    while single_count>0:
-      if res_dict[s[1]]['q']+single_count>=quantity_block:
-        res_dict[s[1]]['v']+=(quantity_block-res_dict[s[1]]['q'])*float(s[3])
-        single_count-=quantity_block-res_dict[s[1]]['q']
-        res.append(s[0]+','+s[1]+','+str(quantity_block)+','+str(res_dict[s[1]]['v']))
-        res_dict[s[1]]=dict()
-        res_dict[s[1]]['t']=s[0]
-        res_dict[s[1]]['q']=0
-        res_dict[s[1]]['v']=0
-      else:
-        res_dict[s[1]]['t']=s[0]
-        res_dict[s[1]]['q']+=single_count
-        res_dict[s[1]]['v']+=single_count*float(s[3])
-        break
-
-  return res
+        count = int(i[2])
+        while count > 0:
+            if ticker_dict[i[1]]['q'] + count >= quantity_block:
+                ticker_dict[i[1]]['p'] = round(
+                    ticker_dict[i[1]]['p'] +
+                    (quantity_block - ticker_dict[i[1]]['q']) * float(i[3]), 2)
+                count -= (quantity_block - ticker_dict[i[1]]['q'])
+                res.append(i[0] + ',' + i[1] + ',' + str(quantity_block) +
+                           ',' + str(ticker_dict[i[1]]['p']))
+                ticker_dict[i[1]]['q'] = 0
+                ticker_dict[i[1]]['p'] = 0
+            else:
+                ticker_dict[i[1]]['q'] += count
+                ticker_dict[i[1]]['p'] = round(
+                    ticker_dict[i[1]]['p'] + count * float(i[3]), 2)
+                break
+    return res

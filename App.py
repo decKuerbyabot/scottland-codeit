@@ -26,13 +26,13 @@ def part_1():
     logging.info("data sent for evaluation {}".format(data))
     ans = to_cumulative(data.get('stream'))
     logging.info("My result :{}".format(ans))
-    return jsonify(ans)
+    return jsonify({"output":ans})
 
 @app.route('/tickerStreamPart2', methods=['POST'])
 def part_2():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    ans = to_cumulative_delayed(data["stream"], data["quantityBlock"])
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
     logging.info("My result :{}".format(ans))
     return jsonify({"output": ans})
 
