@@ -5,36 +5,6 @@ import copy
 
 logger = logging.getLogger(__name__)
 
-@app.route('/tickerStreamPart1', methods=['POST'])
-def part_1():
-    data = request.get_json()
-    logging.info("data sent for evaluation {}".format(data))
-    # result = []
-    ans = to_cumulative(data)
-
-    # for test_case in data:
-        # result.append(ans)
-    logging.info("My result :{}".format(ans))
-    return jsonify(ans)
-
-@app.route('/tickerStreamPart2', methods=['POST'])
-def part_2():
-    # data = request.get_json()
-    # logging.info("data sent for evaluation {}".format(data))
-    # result = []
-    # ans = to_cumulative(data)
-
-    # for test_case in data:
-    #     result.append(ans)
-    # logging.info("My result :{}".format(result))
-    # return jsonify(result)
-    data = request.get_json()
-    logging.info("data sent for evaluation {}".format(data))
-    ans = to_cumulative_delayed(data["stream"])
-    logging.info("My result :{}".format(ans))
-    return jsonify({"output": ans})
-
-
 def to_cumulative(stream: list):
   # print(stream)
   stream=sorted(stream, key=lambda s: s.split(',')[0]+s.split(',')[1])
