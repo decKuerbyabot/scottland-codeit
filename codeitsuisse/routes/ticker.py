@@ -6,35 +6,31 @@ import copy
 logger = logging.getLogger(__name__)
 
 def to_cumulative(stream: list):
-  # print(stream)sadfsaf
-  stream=sorted(stream, key=lambda s: s.split(',')[0]+s.split(',')[1])
-  stream=[s.split(',') for s in stream]
-  res_dict=dict()
-  for s in stream:
-    if s[0] not in res_dict.keys():
-      if len(res_dict.keys())==0:
-        res_dict[s[0]]=dict()
-      else:
-        res_dict[s[0]]=copy.deepcopy(res_dict[list(res_dict.keys())[-1]])
-    if s[1] not in res_dict[s[0]].keys():
-      res_dict[s[0]][s[1]]=dict()
-      res_dict[s[0]][s[1]]["q"]=0
-      res_dict[s[0]][s[1]]["v"]=0
-    res_dict[s[0]][s[1]]["q"]+=int(s[2])
-    res_dict[s[0]][s[1]]["v"]+=float(s[3])*int(s[2])
-  res=[]
-  for i in res_dict.keys():
-    s=i+",";
-    for j in res_dict[i].keys():
-      s+=j
-      s+=","
-      s+=str(res_dict[i][j]['q'])
-      s+=","
-      s+=str(res_dict[i][j]['v'])
-      s+=","
-    s=s[:-1]
-    res.append(s)
-  return res
+    temp = sorted([i.split(',') for i in stream], key=lambda x: (x[0], x[1]))
+    ticker_dict = {}
+    stream_dict = {}
+
+    for i in temp:
+        if i[0] not in stream_dict:
+            stream_dict[i[0]] = {}
+        if i[1] not in stream_dict[i[0]]:
+            stream_dict[i[0]][i[1]] = {'p':0,'q':0}
+        if i[1] not in ticker_dict:
+            ticker_dict[i[1]] = {'p':0,'q':0}
+        ticker_dict[i[1]]['q'] += int(i[2])
+        stream_dict[i[0]][i[1]]['q'] = ticker_dict[i[1]]['q']
+        ticker_dict[i[1]]['p'] = round(ticker_dict[i[1]]['p'] + int(i[2]) * float(i[3]),2)
+        stream_dict[i[0]][i[1]]['p'] = ticker_dict[i[1]]['p']
+
+    res = []
+    for i in stream_dict:
+        temp = i
+        for j in stream_dict[i]:
+            temp += ',' + j + ','
+            temp += str(stream_dict[i][j]['q']) + ','
+            temp += str(stream_dict[i][j]['p'])
+        res.append(temp)
+    return res
 
 
 def to_cumulative_delayed(stream: list, quantity_block: int):
