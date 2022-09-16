@@ -6,7 +6,7 @@ import copy
 logger = logging.getLogger(__name__)
 
 def to_cumulative(stream: list):
-  # print(stream)
+  # print(stream)sadfsaf
   stream=sorted(stream, key=lambda s: s.split(',')[0]+s.split(',')[1])
   stream=[s.split(',') for s in stream]
   res_dict=dict()
