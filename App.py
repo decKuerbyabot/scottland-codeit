@@ -21,6 +21,7 @@ def default_route():
 
 @app.route('/tickerStreamPart1', methods=['POST'])
 def part_1():
+    logging.info("Error")
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     ans = to_cumulative(data)
