@@ -24,7 +24,7 @@ def part_1():
     logging.info("Error")
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    ans = to_cumulative(data)
+    ans = to_cumulative(data.get('stream'))
     logging.info("My result :{}".format(ans))
     return jsonify(ans)
 
