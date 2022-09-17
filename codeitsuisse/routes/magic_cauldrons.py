@@ -169,7 +169,7 @@ def find_full_time_p2(row, col, full_times, rates):
         return full_times[0][0]
     elif col==0:
         if full_times[row][col]==0:
-            upper_full=find_full_time_p1(row-1, col, full_times, rates)
+            upper_full=find_full_time_p2(row-1, col, full_times, rates)
             # upper_rate=rates[row-1][col]
             this_full_time=upper_full+150/rates[row][col]
             full_times[row][col]=this_full_time
@@ -178,44 +178,99 @@ def find_full_time_p2(row, col, full_times, rates):
             return full_times[row][col]
     elif col==row:
         if full_times[row][col]==0:
-            upper_full=find_full_time_p1(row-1, col-1, full_times, rates)
+            upper_full=find_full_time_p2(row-1, col-1, full_times, rates)
             # upper_rate=rates[row-1][col]
-            this_full_time=upper_full+100/rates[row][col]
+            if col%2==0:
+                this_full_time=upper_full+150/rates[row][col]
+            else:
+                this_full_time=upper_full+100/rates[row][col]
             full_times[row][col]=this_full_time
             return this_full_time
         else:
             return full_times[row][col]
     else:
         if full_times[row][col]==0:
-            uf1=find_full_time_p1(row-1, col-1, full_times, rates)
-            uf2=find_full_time_p1(row-1, col, full_times, rates)
+            uf1=find_full_time_p2(row-1, col-1, full_times, rates)
+            uf2=find_full_time_p2(row-1, col, full_times, rates)
             ur1=rates[row-1][col]
             ur2=rates[row-1][col-1]
             uf_soon=min(uf1, uf2)
             uf_late=max(uf1, uf2)
             ur_soon=max(ur1, ur2)
             ur_late=min(ur2, ur1)
-            this_full_time=(200+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
+            if row%2==0:
+                this_full_time=(300+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
+            else:
+                this_full_time=(200+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
             full_times[row][col]=this_full_time
             return this_full_time
         else:
             return full_times[row][col]
 
 
-def solve_part3():
-    pass
+def solve_part3(pr):
+    col=pr["col_number"]
+    row=pr["row_number"]
+    time=pr["time"]
+    rate=pr["flow_rate"]
+
+    rates=[]
+    for i in range(row+1):
+        rates_row=[]
+        if i==0:
+            rates_row=[rate]
+        else:
+            for j in range(i+1):
+                if j-1<0:
+                    rates_row.append(rates[i-1][j]/2)
+                elif j>=i:
+                    rates_row.append(rates[i-1][j-1]/2)
+                else:
+                    rates_row.append((rates[i-1][j]+rates[i-1][j-1])/2)
+        rates.append(rates_row)
+
+    # initialize full times array
+    full_times=[]
+    for i in range(row+1):
+        times_row=[]
+        if i==0:
+            times_row=[100/rate]
+        else:
+            for j in range(i+1):
+
+                times_row.append(0)
+        full_times.append(times_row)
+
+    full_time=find_full_time_p2(row-1, col-1, full_times, rates)
+
+    if full_time<=time:
+        return 150 if col%2==0 else 100
+    else:
+        upper_time_l= float('inf') if col==0 else find_full_time_p1(row-1, col-1, full_times, rates)
+        upper_time_r= float("inf") if col>=row else find_full_time_p1(row-1, col, full_times, rates)
+        upper_rate_l= 0 if col==0 else rates[row-1][col-1]
+        upper_rate_r = 0 if col==row else rates[row-1][col]
+        return max(0, time-upper_time_l) * upper_rate_l/2 + max(0, time-upper_time_r)*upper_rate_r/2
+    
+    
 def solve_part4():
     pass
 
 
 if __name__=="__main__":
     # solve part 1 test
-    # solve_part1({
-    #   "flow_rate": 20,
-    #   "time": 1,
-    #   "row_number": 0,
-    #   "col_number": 0
-    # })
+    solve_part1({
+      "flow_rate": 20,
+      "time": 5,
+      "row_number": 1,
+      "col_number": 0
+    })
+    solve_part1({
+      "flow_rate": 20,
+      "time": 5,
+      "row_number": 1,
+      "col_number": 1
+    })
     # solve_part1({
     #   "flow_rate": 20,
     #   "time": 1,
@@ -250,10 +305,30 @@ if __name__=="__main__":
     #   "col_number": 1
     # }))
 
-    print(solve_part2({
+    # print(solve_part2({
+    #   "flow_rate": 20,
+    #   "amount_of_soup": 87.5,
+    #   "row_number": 3,
+    #   "col_number": 1
+    # }))
+
+    #  print(solve_part3({
+    #   "flow_rate": 20,
+    #   "time": 7.5,
+    #   "row_number": 0,
+    #   "col_number": 0
+    # }))
+    print(solve_part3({
       "flow_rate": 20,
-      "amount_of_soup": 87.5,
-      "row_number": 3,
+      "time": 8,
+      "row_number": 1,
+      "col_number": 0
+    }))
+
+    print(solve_part3({
+      "flow_rate": 20,
+      "time": 8,
+      "row_number": 1,
       "col_number": 1
     }))
 
