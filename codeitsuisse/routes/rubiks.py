@@ -129,7 +129,7 @@ def RubiksCube(ops,state):
         d[2][1] = temp10[1]
         d[2][2] = temp10[2]
 
-    def B():
+    def Bi():
         temp11 = [l[0][0],l[1][0],l[2][0]]  
         l[0][0] = u[0][0]
         l[1][0] = u[0][1]
@@ -144,7 +144,7 @@ def RubiksCube(ops,state):
         d[0][1] = temp11[1]
         d[0][2] = temp11[2]
 
-    def Bi():
+    def B():
         temp12 = [l[0][2],l[1][2],l[2][2]]  
         l[0][0] = d[0][0]
         l[1][0] = d[0][1]
@@ -159,60 +159,61 @@ def RubiksCube(ops,state):
         u[0][1] = temp12[1]
         u[0][2] = temp12[0]
         
-
-    for i in range(len(operation)):
-        if (i != (len(operation)-1)):    
-            if (operation[i] == 'U'):
-                if (operation[i+1] == 'i'):
-                    Ui()
-                    i+=1
-                else:
+    if (ops == ""):
+        return state
+    else:
+        for i in range(len(operation)):
+            if (i != (len(operation)-1)):    
+                if (operation[i] == 'U'):
+                    if (operation[i+1] == 'i'):
+                        Ui()
+                        i+=1
+                    else:
+                        U()
+                elif (operation[i] == 'D'):
+                    if (operation[i+1] == 'i'):
+                        Di()
+                        i+=1
+                    else:
+                        D()
+                elif (operation[i] == 'L'):
+                    if (operation[i+1] == 'i'):
+                        Li()
+                        i+=1
+                    else:
+                        L()
+                elif (operation[i] == 'R'):
+                    if (operation[i+1] == 'i'):
+                        Ri()
+                        i+=1
+                    else:
+                        R()
+                elif (operation[i] == 'F'):
+                    if (operation[i+1] == 'i'):
+                        Fi()
+                        i+=1
+                    else:
+                        F()
+                elif (operation[i] == 'B'):
+                    if (operation[i+1] == 'i'):
+                        Bi()
+                        i+=1
+                    else:
+                        B()
+            else:
+                if (operation[i] == 'i'):
+                    break
+                elif (operation[i] == 'U'):
                     U()
-            elif (operation[i] == 'D'):
-                if (operation[i+1] == 'i'):
-                    Di()
-                    i+=1
-                else:
+                elif (operation[i] == 'D'):
                     D()
-            elif (operation[i] == 'L'):
-                if (operation[i+1] == 'i'):
-                    Li()
-                    i+=1
-                else:
+                elif (operation[i] == 'L'):
                     L()
-            elif (operation[i] == 'R'):
-                if (operation[i+1] == 'i'):
-                    Ri()
-                    i+=1
-                else:
+                elif (operation[i] == 'R'):
                     R()
-            elif (operation[i] == 'F'):
-                if (operation[i+1] == 'i'):
-                    Fi()
-                    i+=1
-                else:
+                elif (operation[i] == 'F'):
                     F()
-            elif (operation[i] == 'B'):
-                if (operation[i+1] == 'i'):
-                    Bi()
-                    i+=1
-                else:
+                elif (operation[i] == 'B'):
                     B()
-        else:
-            if (operation[i] == 'i'):
-                pass
-            elif (operation[i] == 'U'):
-                U()
-            elif (operation[i] == 'D'):
-                D()
-            elif (operation[i] == 'L'):
-                L()
-            elif (operation[i] == 'R'):
-                R()
-            elif (operation[i] == 'F'):
-                F()
-            elif (operation[i] == 'B'):
-                B()
-    #print(u,l,f,r,b,d)
-    dict={"u": u, "l": l, "f": f, "r": r, "b": b, "d": d}
-    return dict
+        dict={"u": u, "l": l, "f": f, "r": r, "b": b, "d": d}
+        return dict
