@@ -56,7 +56,7 @@ def magiccauldrom():
     logging.info("data sent for evaluation {}".format(data))
     ans = solve_magic_cauldron(data)
     logging.info("My result :{}".format(ans))
-    return jsonify({"output": ans})
+    return jsonify(ans)
 
 @app.route('/travelling-suisse-robot', methods=['POST'])
 def tsr():
