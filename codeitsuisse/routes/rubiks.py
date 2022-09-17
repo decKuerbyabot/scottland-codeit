@@ -204,6 +204,7 @@ def RubiksCube(ops,state):
         elif i+2 < len(operation) and operation[i+1] == operation[i] and operation[i+2] == "i":
             i += 3
         else:
+            print(i, operation[i])
             oper_dict[operation[i]]()
             i += 1
 
