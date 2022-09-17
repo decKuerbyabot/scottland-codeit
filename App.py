@@ -7,6 +7,7 @@ from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
 from codeitsuisse.routes.rubiks import RubiksCube
 from codeitsuisse.routes.magic_cauldrons import solve_magic_cauldron
 from codeitsuisse.routes.dnscache import store_dns, simulate_query
+from codeitsuisse.routes.quordleKeyboard import quordleKeynoard_part1, quordleKeynoard_part2
 
 import os
 import glob
@@ -131,6 +132,16 @@ def dns_cache2():
     ans = simulate_query(data.get("cacheSize"), data.get("log"))
     logging.info("My result :{}".format(ans))
     return jsonify(ans)
+
+@app.route('/quordleKeyboard', methods=['POST'])
+def calender_days():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = quordleKeynoard_part1(data.get("numbers"))
+    ans2 = quordleKeynoard_part2(data.get("numbers"))
+    logging.info("My result :{}".format(ans))
+    logging.info("My result :{}".format(ans2))
+    return jsonify({"part1": ans, "part2": ans2})
 
 if __name__ == "__main__":
     logging.info("Starting application ...")
