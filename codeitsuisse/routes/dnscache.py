@@ -1,8 +1,17 @@
 import pickle
+import os
 
 
 def store_dns(lookuptable):
-    pickle.dump(lookuptable, open('lookuptable.pkl', 'wb'))
+    if os.path.isfile("lookuptable.pkl"):
+        foo = pickle.load(open("lookuptable.pkl", "rb"))
+        for i in lookuptable:
+            if lookuptable[i] not in foo:
+                foo[i] =  lookuptable[i]
+        pickle.dump(foo, open('lookuptable.pkl', 'wb'))
+    else:
+        pickle.dump(lookuptable, open('lookuptable.pkl', 'wb'))
+
 
 
 def simulate_query(cache_size, logs):
@@ -24,4 +33,3 @@ def simulate_query(cache_size, logs):
             del cache[domain]
             cache[domain] = lookuptable[domain]
     return res
-
