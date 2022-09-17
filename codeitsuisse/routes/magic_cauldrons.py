@@ -1,7 +1,9 @@
 import sys
 
 def find_full_time_p1(row, col, full_times, rates):
-    if full_times[row][col]==0:
+    if row==0 and col==0:
+        return 100/rates[0][0]
+    elif full_times[row][col]==0:
         uftl=sys.float_info.max if col==0 else find_full_time_p1(row-1, col-1, full_times, rates)
         uftr=sys.float_info.max if col==row else find_full_time_p1(row-1, col, full_times, rates)
         url=0 if col==0 else rates[row-1][col-1]
@@ -13,7 +15,9 @@ def find_full_time_p1(row, col, full_times, rates):
         return full_times[row][col]
 
 def find_full_time_p2(row, col, full_times, rates):
-    if full_times[row][col]==0:
+    if row==0 and col==0:
+        return 150/rates[0][0]
+    elif full_times[row][col]==0:
         uftl=sys.float_info.max if col==0 else find_full_time_p2(row-1, col-1, full_times, rates)
         uftr=sys.float_info.max if col==row else find_full_time_p2(row-1, col, full_times, rates)
         url=0 if col==0 else rates[row-1][col-1]
