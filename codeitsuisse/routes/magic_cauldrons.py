@@ -15,12 +15,6 @@ def solve_case(test_case):
         "part3":solve_part3(test_case["part3"]),
         "part4":solve_part4(test_case["part4"])
     }
-    
-
-
-
-
-
 
 def solve_part1(pr):
     rates=[]
@@ -35,6 +29,7 @@ def solve_part1(pr):
                 else:
                     rates_row[j]=(rates[i-1][j]+rates[i-1][j-1])/2
         rates.append(rates_row)
+    print(rates)
 
     full_times=[]
     for i in range(pr["row_number"]):
@@ -46,7 +41,11 @@ def solve_part1(pr):
                 times_row[i][j]=0
         full_times.append(times_row)
     col=pr["col_number"]
-    pass
+    print(full_times)
+
+    find_full_time_p1(1,1, full_times, rates)
+
+
 
 def see_if_full_p1(row, col, t):
     pass
@@ -101,7 +100,7 @@ def solve_part4():
 
 
 if __name__=="__main__":
-    row=1
-    col=1
+    # solve part 1 test
+    solve_part1()
 
 
