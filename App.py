@@ -4,7 +4,7 @@ from flask import render_template, request, send_from_directory, jsonify
 from codeitsuisse.routes.ticker import to_cumulative, to_cumulative_delayed
 from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
 from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
-from codeitsuisse.routes.fine import RubiksCube
+from codeitsuisse.routes.rubiks import RubiksCube
 
 import os
 import glob
