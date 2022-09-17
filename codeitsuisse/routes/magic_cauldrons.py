@@ -26,11 +26,33 @@ def solve_part1(pr):
     rates=[]
     for i in range(pr["row_number"]):
         rates_row=[]
-        for j in range(99):
-            if i==0:
-                pass
+        if i==0:
+            rates_row=[pr["flow_rate"]]
+        else:
+            for j in range(i):
+                if j-1<0:
+                    rates_row[j]=rates[i-1][j]/2
+                else:
+                    rates_row[j]=(rates[i-1][j]+rates[i-1][j-1])/2
+        rates.append(rates_row)
 
-    row=pr["row_number"]
+    full_times=[]
+    for i in range(pr["row_number"]):
+        if i==0:
+            times_row=[100/pr["flow_rate"]]
+
+            times_row=[0]
+        else:
+            for j in range(i):
+                if j-1<0:
+                    rates_row[j]=rates[i-1][j]/2
+                else:
+                    rates_row[j]=(rates[i-1][j]+rates[i-1][j-1])/2
+        rates.append(rates_row)
+
+
+
+    # row=pr["row_number"]
     col=pr["col_number"]
     pass
 
@@ -39,18 +61,25 @@ def see_if_full_p1(row, col, t):
 
 
 
-def find_full_time_p1(row, col):
+def find_full_time_p1(row, col, full_times, rates):
     if row-1<0:
-        return 1
+        return 
     elif col-1<0:
         upper_full=find_full_time_p1(row-1, col)
+        upper_rate=rates[row-1][col]
 
     else:
         uf1=find_full_time_p1(row-1, col-1)
         uf2=find_full_time_p1(row-1, col)
+
+        ur1=rates[row-1][col]
+        ur2=rates[row-1][col-1]
         uf_soon=min(uf1, uf2)
         uf_late=max(uf1, uf2)
-        ur_soon=1
+        ur_soon=max(ur1, ur2)
+        ur_late=min(ur2, ur1)
+
+
 
 
         
