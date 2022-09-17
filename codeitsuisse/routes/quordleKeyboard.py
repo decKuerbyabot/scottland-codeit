@@ -48,6 +48,7 @@ def quordleKeynoard_part2(answers, attempts, numbers):
         character_letter = int(character_bin, 2)
         res += chr(ord('@')+character_letter)
         character_bin = '' 
-    left = left_letter[0]
-    res += left
+    if (len(left_letter) != 0):
+        left = left_letter[0]
+        res += left
     return res 
