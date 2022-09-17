@@ -131,6 +131,16 @@ def dns_cache2():
     logging.info("My result :{}".format(ans))
     return jsonify(ans)
 
+@app.route('/quordleKeyboard', methods=['POST'])
+def calender_days():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = quordleKeynoard_part1(data.get("numbers"))
+    ans2 = quordleKeynoard_part2(data.get("numbers"))
+    logging.info("My result :{}".format(ans))
+    logging.info("My result :{}".format(ans2))
+    return jsonify({"part1": ans, "part2": ans2})
+
 if __name__ == "__main__":
     logging.info("Starting application ...")
     app.run(port=8000)
