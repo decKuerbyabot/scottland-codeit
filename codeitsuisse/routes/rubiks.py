@@ -194,7 +194,7 @@ def RubiksCube(ops,state):
 
     oper_dict = {'U': U, 'L': L, 'D': D, 'B': B, 'F': F, 'R': R, 'Ui': Ui, 'Li': Li, 'Di': Di, 'Bi': Bi, 'Fi': Fi, 'Ri': Ri}
     i = 0
-    while(i != len(operation)):
+    while(i < len(operation)):
         if i+1 < len(operation) and operation[i+1] == 'i':
             if i + 2 < len(operation) and operation[i + 2] == operation[i]:
                 i += 3
