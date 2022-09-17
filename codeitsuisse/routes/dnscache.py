@@ -27,7 +27,7 @@ def simulate_query(cache_size, logs):
                     cache.pop(list(cache.keys())[0])
                 cache[domain] = lookuptable[domain]
             else:
-                res.append({'status': 'invalid', 'ipAddress': 'null'})
+                res.append({'status': 'invalid', 'ipAddress': None})
 
         else:
             res.append({'status': 'cache hit', 'ipAddress': lookuptable[domain]})
