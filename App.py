@@ -6,6 +6,7 @@ from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
 from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
 from codeitsuisse.routes.rubiks import RubiksCube
 from codeitsuisse.routes.dnscache import store_dns, simulate_query
+from codeitsuisse.routes.quordleKeyboard import quordleKeynoard_part1, quordleKeynoard_part2
 
 import os
 import glob
