@@ -56,13 +56,20 @@ def calendar_part2(month_num):
     year = 0
 
     flag = False
+    ind = -2
     for i in temp:
-        if i != "       ":
+        ind += 1
+        if i == "       ":
+            year = 2001 + ind + 1
+            break
+        else:
             for j in range(7):
                 if i[j] == ' ':
-                    year = 2001 + j
+                    year = 2001 + ind + 1
                     flag = True
                     break
+                else:
+                    ind += 1
         if flag:
             break
 
@@ -87,4 +94,3 @@ def calendar_part2(month_num):
                     if temp[i][x] != ' ':
                         res.append(find_date(year, i+1, x))
     return res
-
