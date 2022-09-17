@@ -38,21 +38,13 @@ def solve_part1(pr):
 
     full_times=[]
     for i in range(pr["row_number"]):
+        times_row=[]
         if i==0:
             times_row=[100/pr["flow_rate"]]
-
-            times_row=[0]
         else:
             for j in range(i):
-                if j-1<0:
-                    rates_row[j]=rates[i-1][j]/2
-                else:
-                    rates_row[j]=(rates[i-1][j]+rates[i-1][j-1])/2
-        rates.append(rates_row)
-
-
-
-    # row=pr["row_number"]
+                times_row[i][j]=0
+        full_times.append(times_row)
     col=pr["col_number"]
     pass
 
@@ -62,22 +54,34 @@ def see_if_full_p1(row, col, t):
 
 
 def find_full_time_p1(row, col, full_times, rates):
-    if row-1<0:
-        return 
+    if row==0:
+        return full_times[0][0]
     elif col-1<0:
-        upper_full=find_full_time_p1(row-1, col)
-        upper_rate=rates[row-1][col]
-
+        if full_times[row][col]==0:
+            upper_full=find_full_time_p1(row-1, col)
+            # upper_rate=rates[row-1][col]
+            this_full_time=upper_full+100/rates[row, col]
+            full_times[row][col]=this_full_time
+            return this_full_time
+        else:
+            return full_times[row][col]
     else:
-        uf1=find_full_time_p1(row-1, col-1)
-        uf2=find_full_time_p1(row-1, col)
+        if full_times[row][col]==0:
+            uf1=find_full_time_p1(row-1, col-1)
+            uf2=find_full_time_p1(row-1, col)
+            ur1=rates[row-1][col]
+            ur2=rates[row-1][col-1]
+            uf_soon=min(uf1, uf2)
+            uf_late=max(uf1, uf2)
+            ur_soon=max(ur1, ur2)
+            ur_late=min(ur2, ur1)
+            this_full_time=(200+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
+            full_times[row][col]=this_full_time
+            return this_full_time
+        else:
+            return full_times[row][col]
+    
 
-        ur1=rates[row-1][col]
-        ur2=rates[row-1][col-1]
-        uf_soon=min(uf1, uf2)
-        uf_late=max(uf1, uf2)
-        ur_soon=max(ur1, ur2)
-        ur_late=min(ur2, ur1)
 
 
 
@@ -94,4 +98,10 @@ def solve_part3():
 
 def solve_part4():
     pass
+
+
+if __name__=="__main__":
+    row=1
+    col=1
+
 
