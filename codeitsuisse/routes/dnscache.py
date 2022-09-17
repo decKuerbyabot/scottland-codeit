@@ -25,24 +25,3 @@ def simulate_query(cache_size, logs):
             cache[domain] = lookuptable[domain]
     return res
 
-
-# store_dns( {
-#     'google.com': '1.2.3.4',
-#     'amazon.com': '2.3.4.5',
-#     'yahoo.com': '3.4.5.6',
-#     'bing.com': '4.5.6.7',
-#     'facebook.com': '5.6.7.8',
-#     'instagram.com': '6.7.8.9'
-#   })
-
-print(simulate_query(3,
-  [
-    'google.com',
-    'google.com',
-    'amazon.com',
-    'instagram.com',
-    'google.com',
-    'bing.com',
-    'instagram.com',
-    'burger.com'
-  ]))
