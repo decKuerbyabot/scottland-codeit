@@ -11,6 +11,7 @@ def store_dns(lookuptable):
         pickle.dump(foo, open('lookuptable.pkl', 'wb'))
     else:
         pickle.dump(lookuptable, open('lookuptable.pkl', 'wb'))
+    return {"success": True}
 
 
 
@@ -26,7 +27,7 @@ def simulate_query(cache_size, logs):
                     cache.pop(list(cache.keys())[0])
                 cache[domain] = lookuptable[domain]
             else:
-                res.append({'status': 'invalid', 'ipAddress': 'null'})
+                res.append({'status': 'invalid', 'ipAddress': None})
 
         else:
             res.append({'status': 'cache hit', 'ipAddress': lookuptable[domain]})
