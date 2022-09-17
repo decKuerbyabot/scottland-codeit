@@ -44,16 +44,14 @@ def to_cumulative_delayed(stream: list, quantity_block: int):
             ticker_dict[i[1]]['p'] = 0
 
         count = int(i[2])
-        while count > 0:
-            if ticker_dict[i[1]]['q'] + count >= quantity_block:
-                ticker_dict[i[1]]['p'] = round(ticker_dict[i[1]]['p'] +(quantity_block - ticker_dict[i[1]]['q']) * float(i[3]), 2)
-                count -= (quantity_block - ticker_dict[i[1]]['q'])
-                res.append(i[0] + ',' + i[1] + ',' + str(quantity_block) + ',' + str(ticker_dict[i[1]]['p']))
-                ticker_dict[i[1]]['q'] = 0
-                # ticker_dict[i[1]]['p'] = 0
-            else:
-                ticker_dict[i[1]]['q'] += count
-                ticker_dict[i[1]]['p'] = round(
-                    ticker_dict[i[1]]['p'] + count * float(i[3]), 2)
-                break
+        if (ticker_dict[i[1]]['q'] + count)//quantity_block > ticker_dict[i[1]]['q']//quantity_block:
+            temp = ((ticker_dict[i[1]]['q'] + count)//quantity_block) * quantity_block
+            ticker_dict[i[1]]['p'] = round(ticker_dict[i[1]]['p'] + (temp - ticker_dict[i[1]]['q']) * float(i[3]), 2)
+            ticker_dict[i[1]]['q'] += temp - ticker_dict[i[1]]['q']
+            res.append(i[0] + ',' + i[1] + ',' + str(ticker_dict[i[1]]['q']) + ',' + str(ticker_dict[i[1]]['p']))
+        else:
+            ticker_dict[i[1]]['q'] += count
+            ticker_dict[i[1]]['p'] = round(ticker_dict[i[1]]['p'] + count * float(i[3]), 2)
+
+    return res
     return res
