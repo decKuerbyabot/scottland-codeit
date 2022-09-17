@@ -3,6 +3,7 @@ from codeitsuisse import app
 from flask import render_template, request, send_from_directory, jsonify
 from codeitsuisse.routes.ticker import to_cumulative, to_cumulative_delayed
 from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
+from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
 
 import os
 import glob
@@ -66,9 +67,11 @@ def tsr():
 def calender_days():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    ans = calendar_part1(data.get("numbers"))
+    ans2 = calendar_part2(ans)
     logging.info("My result :{}".format(ans))
-    return jsonify({"output": ans})
+    logging.info("My result :{}".format(ans2))
+    return jsonify({"part1": ans, "part2": ans2})
 
 @app.route('/rubiks', methods=['POST'])
 def rubiks():
