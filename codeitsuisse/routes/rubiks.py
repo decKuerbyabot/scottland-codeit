@@ -8,6 +8,7 @@ def rotate(matrix):
             matrix[j][n - 1 - i] = matrix[i][j]
             matrix[i][j] = tmp
 
+
 def reverse(matrix):
     n = 3
     for i in range(n // 2 + n % 2):
@@ -18,7 +19,8 @@ def reverse(matrix):
             matrix[i][j] = matrix[j][n - 1 - i]
             matrix[j][n - 1 - i] = tmp
 
-def RubiksCube(ops,state):
+
+def RubiksCube(ops, state):
     operation = [*ops]
     u = state["u"]
     l = state["l"]
@@ -26,8 +28,9 @@ def RubiksCube(ops,state):
     r = state["r"]
     b = state["b"]
     d = state["d"]
+
     def U():
-        temp1 = l[0]  
+        temp1 = l[0]
         l[0] = f[0]
         f[0] = r[0]
         r[0] = b[0]
@@ -35,7 +38,7 @@ def RubiksCube(ops,state):
         rotate(u)
 
     def Ui():
-        temp2 = l[0]  
+        temp2 = l[0]
         l[0] = b[0]
         b[0] = r[0]
         r[0] = f[0]
@@ -43,7 +46,7 @@ def RubiksCube(ops,state):
         reverse(u)
 
     def D():
-        temp3 = l[2]  
+        temp3 = l[2]
         l[2] = b[2]
         b[2] = r[2]
         r[2] = f[2]
@@ -51,21 +54,22 @@ def RubiksCube(ops,state):
         rotate(d)
 
     def Di():
-        temp4 = l[2]  
+        temp4 = l[2]
         l[2] = f[2]
         f[2] = r[2]
         r[2] = b[2]
         b[2] = temp4
         reverse(d)
 
+    # okay
     def L():
-        temp5 = [u[0][0],u[1][0],u[2][0]]
-        u[0][0] = b[0][0]
-        u[1][0] = b[1][0]
-        u[2][0] = b[2][0]
-        b[0][0] = d[0][0]
-        b[1][0] = d[1][0]
-        b[2][0] = d[2][0]
+        temp5 = [u[0][0], u[1][0], u[2][0]]
+        u[0][0] = b[2][2]
+        u[1][0] = b[1][2]
+        u[2][0] = b[0][2]
+        b[0][2] = d[2][0]
+        b[1][2] = d[1][0]
+        b[2][2] = d[0][0]
         d[0][0] = f[0][0]
         d[1][0] = f[1][0]
         d[2][0] = f[2][0]
@@ -73,49 +77,50 @@ def RubiksCube(ops,state):
         f[1][0] = temp5[1]
         f[2][0] = temp5[2]
         rotate(l)
-        
-        
+
 
     def Li():
-        temp6 = [u[0][0],u[1][0],u[2][0]]
+        temp6 = [u[0][0], u[1][0], u[2][0]]
         u[0][0] = f[0][0]
         u[1][0] = f[1][0]
         u[2][0] = f[2][0]
         f[0][0] = d[0][0]
         f[1][0] = d[1][0]
         f[2][0] = d[2][0]
-        d[0][0] = b[0][0]
-        d[1][0] = b[1][0]
-        d[2][0] = b[2][0]
-        b[0][0] = temp6[0]
-        b[1][0] = temp6[1]
-        b[2][0] = temp6[2]
+        d[0][0] = b[2][2]
+        d[1][0] = b[1][2]
+        d[2][0] = b[0][2]
+        b[0][2] = temp6[2]
+        b[1][2] = temp6[1]
+        b[2][2] = temp6[0]
         reverse(l)
-        
+
+    # okasy
     def R():
-        temp7 = [u[0][0],u[1][0],u[2][0]]
+        temp7 = [u[0][2], u[1][2], u[2][2]]
         u[0][2] = f[0][2]
         u[1][2] = f[1][2]
         u[2][2] = f[2][2]
         f[0][2] = d[0][2]
         f[1][2] = d[1][2]
         f[2][2] = d[2][2]
-        d[0][2] = b[0][2]
-        d[1][2] = b[1][2]
-        d[2][2] = b[2][2]
-        b[0][2] = temp7[0]
-        b[1][2] = temp7[1]
-        b[2][2] = temp7[2]
+        d[0][2] = b[2][0]
+        d[1][2] = b[1][0]
+        d[2][2] = b[0][0]
+        b[0][0] = temp7[2]
+        b[1][0] = temp7[1]
+        b[2][0] = temp7[0]
         rotate(r)
 
+    # okay
     def Ri():
-        temp8 = [u[0][0],u[1][0],u[2][0]]
-        u[0][2] = b[0][2]
-        u[1][2] = b[1][2]
-        u[2][2] = b[2][2]
-        b[0][2] = d[0][2]
-        b[1][2] = d[1][2]
-        b[2][2] = d[2][2]
+        temp8 = [u[0][2], u[1][2], u[2][2]]
+        u[0][2] = b[2][0]
+        u[1][2] = b[1][0]
+        u[2][2] = b[0][0]
+        b[2][0] = d[0][2]
+        b[1][0] = d[1][2]
+        b[0][0] = d[2][2]
         d[0][2] = f[0][2]
         d[1][2] = f[1][2]
         d[2][2] = f[2][2]
@@ -123,66 +128,66 @@ def RubiksCube(ops,state):
         f[1][2] = temp8[1]
         f[2][2] = temp8[2]
         reverse(r)
-           
 
+    # okay
     def F():
-        temp9 = [l[0][2],l[1][2],l[2][2]]  
-        l[0][2] = d[2][0]
-        l[1][2] = d[2][1]
-        l[2][2] = d[2][2]
-        d[2][0] = r[0][0]
-        d[2][1] = r[1][0]
-        d[2][2] = r[2][0]
-        r[0][0] = u[2][0]
-        r[1][0] = u[2][1]
+        temp9 = [l[0][2], l[1][2], l[2][2]]
+        l[0][2] = d[0][0]
+        l[1][2] = d[0][1]
+        l[2][2] = d[0][2]
+        d[0][0] = r[2][0]
+        d[0][1] = r[1][0]
+        d[0][2] = r[0][0]
         r[2][0] = u[2][2]
+        r[1][0] = u[2][1]
+        r[0][0] = u[2][0]
         u[2][0] = temp9[2]
         u[2][1] = temp9[1]
         u[2][2] = temp9[0]
         rotate(f)
-        
-        
 
+    # okay
     def Fi():
-        temp10 = [l[0][2],l[1][2],l[2][2]]  
-        l[0][2] = u[2][0]
+        temp10 = [l[0][2], l[1][2], l[2][2]]
+        l[0][2] = u[2][2]
         l[1][2] = u[2][1]
-        l[2][2] = u[2][2]
+        l[2][2] = u[2][0]
         u[2][0] = r[0][0]
         u[2][1] = r[1][0]
         u[2][2] = r[2][0]
-        r[0][0] = d[2][0]
-        r[1][0] = d[2][1]
-        r[2][0] = d[2][2]
-        d[2][0] = temp10[0]
-        d[2][1] = temp10[1]
-        d[2][2] = temp10[2]
+        r[0][0] = d[0][2]
+        r[1][0] = d[0][1]
+        r[2][0] = d[0][0]
+        d[0][0] = temp10[0]
+        d[0][1] = temp10[1]
+        d[0][2] = temp10[2]
         reverse(f)
 
+
     def B():
-        temp11 = [l[0][0],l[1][0],l[2][0]]  
-        l[0][0] = u[0][0]
+        temp11 = [l[0][0], l[1][0], l[2][0]]
+        l[0][0] = u[0][2]
         l[1][0] = u[0][1]
-        l[2][0] = u[0][2]
+        l[2][0] = u[0][0]
         u[0][0] = r[0][2]
         u[0][1] = r[1][2]
         u[0][2] = r[2][2]
-        r[0][2] = d[0][0]
-        r[1][2] = d[0][1]
-        r[2][2] = d[0][2]
-        d[0][0] = temp11[0]
-        d[0][1] = temp11[1]
-        d[0][2] = temp11[2]
+        r[0][2] = d[2][2]
+        r[1][2] = d[2][1]
+        r[2][2] = d[2][0]
+        d[2][0] = temp11[0]
+        d[2][1] = temp11[1]
+        d[2][2] = temp11[2]
         rotate(b)
 
     def Bi():
-        temp12 = [l[0][2],l[1][2],l[2][2]]  
-        l[0][0] = d[0][0]
-        l[1][0] = d[0][1]
-        l[2][0] = d[0][2]
-        d[0][0] = r[0][2]
-        d[0][1] = r[1][2]
-        d[0][2] = r[2][2]
+        temp12 = [l[0][0], l[1][0], l[2][0]]
+        l[0][0] = d[2][0]
+        l[1][0] = d[2][1]
+        l[2][0] = d[2][2]
+        d[2][0] = r[2][2]
+        d[2][1] = r[1][2]
+        d[2][2] = r[0][2]
         r[0][2] = u[0][0]
         r[1][2] = u[0][1]
         r[2][2] = u[0][2]
@@ -191,11 +196,12 @@ def RubiksCube(ops,state):
         u[0][2] = temp12[0]
         reverse(b)
 
-    oper_dict = {'U': U, 'L': L, 'D': D, 'B': B, 'F': F, 'R': R, 'Ui': Ui, 'Li': Li, 'Di': Di, 'Bi': Bi, 'Fi': Fi, 'Ri': Ri}
+    oper_dict = {'U': U, 'L': L, 'D': D, 'B': B, 'F': F, 'R': R, 'Ui': Ui, 'Li': Li, 'Di': Di, 'Bi': Bi, 'Fi': Fi,
+                 'Ri': Ri}
     i = 0
     print(operation)
-    while(i < len(operation)):
-        if i+1 < len(operation) and operation[i+1] == 'i':
+    while (i < len(operation)):
+        if i + 1 < len(operation) and operation[i + 1] == 'i':
             if i + 2 < len(operation) and operation[i + 2] == operation[i]:
                 if i + 3 < len(operation) and operation[i + 3] == 'i':
                     oper_dict["".join(operation[i:i + 2])]()
@@ -204,9 +210,9 @@ def RubiksCube(ops,state):
                     continue
                 i += 3
                 continue
-            oper_dict["".join(operation[i:i+2])]()
+            oper_dict["".join(operation[i:i + 2])]()
             i += 2
-        elif i+2 < len(operation) and operation[i+1] == operation[i] and operation[i+2] == "i":
+        elif i + 2 < len(operation) and operation[i + 1] == operation[i] and operation[i + 2] == "i":
             i += 3
         else:
             oper_dict[operation[i]]()
