@@ -2,6 +2,8 @@ import logging
 from codeitsuisse import app
 from flask import render_template, request, send_from_directory, jsonify
 from codeitsuisse.routes.ticker import to_cumulative, to_cumulative_delayed
+from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
+
 import os
 import glob
 
@@ -36,6 +38,77 @@ def part_2():
     logging.info("My result :{}".format(ans))
     return jsonify({"output": ans})
 
+@app.route('/cryptocollapz', methods=['POST'])
+def cryptocollapz():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans=solve_cryptocollapz(data)
+    logging.info("My result :{}".format(ans))
+    return jsonify(ans)
+
+@app.route('/magiccauldrons', methods=['POST'])
+def magiccauldrom():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/travelling-suisse-robot', methods=['POST'])
+def tsr():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/calendarDays', methods=['POST'])
+def calender_days():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/rubiks', methods=['POST'])
+def rubiks():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/reversle', methods=['POST'])
+def reversle():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/stonks', methods=['POST'])
+def stonks():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/payload_stack', methods=['POST'])
+def payload_stack():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
+
+@app.route('/payload_shellcode', methods=['POST'])
+def payload_shellcode():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    logging.info("My result :{}".format(ans))
+    return jsonify({"output": ans})
 
 if __name__ == "__main__":
     logging.info("Starting application ...")
