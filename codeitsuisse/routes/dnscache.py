@@ -11,6 +11,7 @@ def store_dns(lookuptable):
         pickle.dump(foo, open('lookuptable.pkl', 'wb'))
     else:
         pickle.dump(lookuptable, open('lookuptable.pkl', 'wb'))
+    return {"success": True}
 
 
 
