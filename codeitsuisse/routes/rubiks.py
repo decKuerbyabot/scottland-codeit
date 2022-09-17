@@ -129,7 +129,7 @@ def RubiksCube(ops,state):
         d[2][1] = temp10[1]
         d[2][2] = temp10[2]
 
-    def Bi():
+    def B():
         temp11 = [l[0][0],l[1][0],l[2][0]]  
         l[0][0] = u[0][0]
         l[1][0] = u[0][1]
@@ -144,7 +144,7 @@ def RubiksCube(ops,state):
         d[0][1] = temp11[1]
         d[0][2] = temp11[2]
 
-    def B():
+    def Bi():
         temp12 = [l[0][2],l[1][2],l[2][2]]  
         l[0][0] = d[0][0]
         l[1][0] = d[0][1]
