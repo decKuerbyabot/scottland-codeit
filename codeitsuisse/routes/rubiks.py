@@ -7,7 +7,6 @@ def rotate(matrix):
             matrix[n - 1 - i][n - j - 1] = matrix[j][n - 1 - i]
             matrix[j][n - 1 - i] = matrix[i][j]
             matrix[i][j] = tmp
-    print(matrix)
 
 def reverse(matrix):
     n = 3
@@ -194,9 +193,15 @@ def RubiksCube(ops,state):
 
     oper_dict = {'U': U, 'L': L, 'D': D, 'B': B, 'F': F, 'R': R, 'Ui': Ui, 'Li': Li, 'Di': Di, 'Bi': Bi, 'Fi': Fi, 'Ri': Ri}
     i = 0
+    print(operation)
     while(i < len(operation)):
         if i+1 < len(operation) and operation[i+1] == 'i':
             if i + 2 < len(operation) and operation[i + 2] == operation[i]:
+                if i + 3 < len(operation) and operation[i + 3] == 'i':
+                    oper_dict["".join(operation[i:i + 2])]()
+                    oper_dict["".join(operation[i:i + 2])]()
+                    i += 4
+                    continue
                 i += 3
                 continue
             oper_dict["".join(operation[i:i+2])]()
@@ -204,7 +209,6 @@ def RubiksCube(ops,state):
         elif i+2 < len(operation) and operation[i+1] == operation[i] and operation[i+2] == "i":
             i += 3
         else:
-            print(i, operation[i])
             oper_dict[operation[i]]()
             i += 1
 
