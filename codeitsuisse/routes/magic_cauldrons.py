@@ -363,33 +363,59 @@ if __name__=="__main__":
       "col_number": 1
     }))
 
-    print(solve_case({
-    "part1":{
-        "flow_rate": 20,
-        "time": 6,
-        "row_number": 1,
-        "col_number": 1
-        },
-    "part2":{
-        "flow_rate": 20,
-        "amount_of_soup": 5,
-        "row_number": 1,
-        "col_number": 1
-        },
-    "part3":{
-        "flow_rate": 20,
-        "time": 40,
-        "row_number": 3,
-        "col_number": 2
-    },
-    "part4":{
-        "flow_rate": 20,
-        "amount_of_soup": 50,
-        "row_number": 3,
-        "col_number": 2
-    }
-    }))
+    # print(solve_case({
+    # "part1":{
+    #     "flow_rate": 20,
+    #     "time": 6,
+    #     "row_number": 0,
+    #     "col_number": 0
+    #     },
+    # "part2":{
+    #     "flow_rate": 20,
+    #     "amount_of_soup": 5,
+    #     "row_number": 1,
+    #     "col_number": 1
+    #     },
+    # "part3":{
+    #     "flow_rate": 20,
+    #     "time": 40,
+    #     "row_number": 3,
+    #     "col_number": 2
+    # },
+    # "part4":{
+    #     "flow_rate": 20,
+    #     "amount_of_soup": 50,
+    #     "row_number": 3,
+    #     "col_number": 2
+    # }
+    # }))
 
+    print(solve_case({
+        "part1": {
+        "flow_rate": 20,
+        "time": 1,
+        "row_number": 0,
+        "col_number": 0
+        },
+        "part2": {
+        "flow_rate": 10,
+        "amount_of_soup": 10.00,
+        "row_number": 0,
+        "col_number": 0
+        },
+        "part3": {
+        "flow_rate": 30,
+        "time": 2,
+        "row_number": 0,
+        "col_number": 0
+        },
+        "part4": {
+        "flow_rate": 50,
+        "amount_of_soup": 100.00,
+        "row_number": 0,
+        "col_number": 0
+        }
+    }))
     # print(solve)
 
 
