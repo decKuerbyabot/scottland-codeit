@@ -1,84 +1,33 @@
 import sys
 
 def find_full_time_p1(row, col, full_times, rates):
-    if row==0:
-        return full_times[0][0]
-    elif col-1<0:
-        if full_times[row][col]==0:
-            upper_full=find_full_time_p1(row-1, col, full_times, rates)
-            # upper_rate=rates[row-1][col]
-            this_full_time=upper_full+100/rates[row][col]
-            full_times[row][col]=this_full_time
-            return this_full_time
-        else:
-            return full_times[row][col]
-    elif col>=row:
-        if full_times[row][col]==0:
-            upper_full=find_full_time_p1(row-1, col-1, full_times, rates)
-            # upper_rate=rates[row-1][col]
-            this_full_time=upper_full+100/rates[row][col]
-            full_times[row][col]=this_full_time
-            return this_full_time
-        else:
-            return full_times[row][col]
+    if full_times[row][col]==0:
+        uftl=sys.float_info.max if col==0 else find_full_time_p1(row-1, col-1, full_times, rates)
+        uftr=sys.float_info.max if col==row else find_full_time_p1(row-1, col, full_times, rates)
+        url=0 if col==0 else rates[row-1][col-1]
+        urr=0 if col==row else rates[row-1][col]
+        this_full_time=(200+url*uftl+urr*uftr)/(url+urr)
+        full_times[row][col]=this_full_time
+        return this_full_time
     else:
-        if full_times[row][col]==0:
-            uf1=find_full_time_p1(row-1, col-1, full_times, rates)
-            uf2=find_full_time_p1(row-1, col, full_times, rates)
-            ur1=rates[row-1][col]
-            ur2=rates[row-1][col-1]
-            uf_soon=min(uf1, uf2)
-            uf_late=max(uf1, uf2)
-            ur_soon=max(ur1, ur2)
-            ur_late=min(ur2, ur1)
-            this_full_time=(200+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
-            full_times[row][col]=this_full_time
-            return this_full_time
-        else:
-            return full_times[row][col]
+        return full_times[row][col]
 
 def find_full_time_p2(row, col, full_times, rates):
-    if row==0:
-        return full_times[0][0]
-    elif col==0:
-        if full_times[row][col]==0:
-            upper_full=find_full_time_p2(row-1, col, full_times, rates)
-            # upper_rate=rates[row-1][col]
-            this_full_time=upper_full+150/rates[row][col]
-            full_times[row][col]=this_full_time
-            return this_full_time
-        else:
-            return full_times[row][col]
-    elif col==row:
-        if full_times[row][col]==0:
-            upper_full=find_full_time_p2(row-1, col-1, full_times, rates)
-            # upper_rate=rates[row-1][col]
-            if col%2==0:
-                this_full_time=upper_full+150/rates[row][col]
-            else:
-                this_full_time=upper_full+100/rates[row][col]
-            full_times[row][col]=this_full_time
-            return this_full_time
-        else:
-            return full_times[row][col]
-    else:
-        if full_times[row][col]==0:
-            uf1=find_full_time_p2(row-1, col-1, full_times, rates)
-            uf2=find_full_time_p2(row-1, col, full_times, rates)
-            ur1=rates[row-1][col]
-            ur2=rates[row-1][col-1]
-            uf_soon=min(uf1, uf2)
-            uf_late=max(uf1, uf2)
-            ur_soon=max(ur1, ur2)
-            ur_late=min(ur2, ur1)
+    if full_times[row][col]==0:
+            uftl=sys.float_info.max if col==0 else find_full_time_p2(row-1, col-1, full_times, rates)
+            uftr=sys.float_info.max if col==row else find_full_time_p2(row-1, col, full_times, rates)
+            url=0 if col==0 else rates[row-1][col-1]
+            urr=0 if col==row else rates[row-1][col]
             if row%2==0:
-                this_full_time=(300+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
+                this_full_time=(300+url*uftl+urr*uftr)/(url+urr)
             else:
-                this_full_time=(200+ur_soon*uf_soon+ur_late*uf_late)/(ur_soon+ur_late)
+                this_full_time=(200+url*uftl+urr*uftr)/(url+urr)
             full_times[row][col]=this_full_time
             return this_full_time
-        else:
-            return full_times[row][col]
+    else:
+        return full_times[row][col]
+   
+        
 
 def solve_magic_cauldron(input):
     ans=[]
@@ -293,9 +242,16 @@ if __name__=="__main__":
       "col_number": 1
     }))
 
-    print("p2", solve_part2({
+    print("p2 5 1 1 shoule be 5.5", solve_part2({
       "flow_rate": 20,
       "amount_of_soup": 5,
+      "row_number": 1,
+      "col_number": 1
+    }))
+
+    print("p2 100 1 1 shoule be 15", solve_part2({
+      "flow_rate": 20,
+      "amount_of_soup": 100,
       "row_number": 1,
       "col_number": 1
     }))
@@ -314,14 +270,28 @@ if __name__=="__main__":
       "col_number": 2
     }))
 
-    print("p4", solve_part4({
+    print("p4 100 1 1 should be 17.5", solve_part4({
       "flow_rate": 20,
-      "amount_of_soup": 25,
+      "amount_of_soup": 100,
       "row_number": 1,
       "col_number": 1
     }))
 
-    print("p4", solve_part4({
+    print("p4 100 0 1 should be 17.5", solve_part4({
+      "flow_rate": 20,
+      "amount_of_soup": 100,
+      "row_number": 1,
+      "col_number": 1
+    }))
+
+    print("p4 150 0 1 should be 22.5", solve_part4({
+      "flow_rate": 20,
+      "amount_of_soup": 150,
+      "row_number": 1,
+      "col_number": 1
+    }))
+
+    print("p4 5 1 1 shoule be 8", solve_part4({
       "flow_rate": 20,
       "amount_of_soup": 5,
       "row_number": 1,
