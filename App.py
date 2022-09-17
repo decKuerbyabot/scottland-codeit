@@ -5,7 +5,7 @@ from codeitsuisse.routes.ticker import to_cumulative, to_cumulative_delayed
 from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
 from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
 from codeitsuisse.routes.rubiks import RubiksCube
-
+from codeitsuisse.routes.magic_cauldrons import solve_magic_cauldron
 import os
 import glob
 
@@ -52,7 +52,7 @@ def cryptocollapz():
 def magiccauldrom():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
+    ans = solve_magic_cauldron(data)
     logging.info("My result :{}".format(ans))
     return jsonify({"output": ans})
 
