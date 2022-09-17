@@ -90,6 +90,8 @@ def solve_part1(pr):
     if full_time<=pr["time"]:
         return 100
     else:
+        if row==0 and col==0:
+            return time*rate
         upper_time_l= sys.float_info.max if col==0 else find_full_time_p1(row-1, col-1, full_times, rates)
         upper_time_r= sys.float_info.max if col>=row else find_full_time_p1(row-1, col, full_times, rates)
         upper_rate_l= 0 if col==0 else rates[row-1][col-1]
@@ -105,6 +107,8 @@ def solve_part2(pr):
     amount=pr["amount_of_soup"]
     rate=pr["flow_rate"]
     rates=[]
+    if row==0 & col==0:
+        return amount/rate
     for i in range(row+1):
         rates_row=[]
         if i==0:
@@ -186,6 +190,8 @@ def solve_part3(pr):
     if full_time<=time:
         return 150 if col%2==0 else 100
     else:
+        if row==0 and col==0:
+            return time*rate
         upper_time_l= float('inf') if col==0 else find_full_time_p2(row-1, col-1, full_times, rates)
         # print("p4 utl",upper_time_l)
         upper_time_r= float("inf") if col>=row else find_full_time_p2(row-1, col, full_times, rates)
@@ -201,6 +207,8 @@ def solve_part4(pr):
     rate=pr["flow_rate"]
 
     rates=[]
+    if row==0 and col==0:
+        return amount/rate
     for i in range(row+1):
         rates_row=[]
         if i==0:
