@@ -6,6 +6,8 @@ from codeitsuisse.routes.cryptocollapz import solve_cryptocollapz
 from codeitsuisse.routes.calendar import calendar_part1, calendar_part2
 from codeitsuisse.routes.rubiks import RubiksCube
 from codeitsuisse.routes.magic_cauldrons import solve_magic_cauldron
+from codeitsuisse.routes.dnscache import store_dns, simulate_query
+
 import os
 import glob
 
@@ -113,6 +115,22 @@ def payload_shellcode():
     ans = to_cumulative_delayed(data.get("stream"), data.get("quantityBlock"))
     logging.info("My result :{}".format(ans))
     return jsonify({"output": ans})
+
+@app.route('/instantiateDNSLookup', methods=['POST'])
+def dns_cache1():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = store_dns(data.get("lookupTable"))
+    logging.info("My result :{}".format(ans))
+    return jsonify(ans)
+
+@app.route('/simulateQuery', methods=['POST'])
+def dns_cache2():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    ans = simulate_query(data.get("cacheSize"), data.get("log"))
+    logging.info("My result :{}".format(ans))
+    return jsonify(ans)
 
 if __name__ == "__main__":
     logging.info("Starting application ...")
