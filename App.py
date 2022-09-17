@@ -137,7 +137,7 @@ def dns_cache2():
 def quordleKeyboard():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    ans = quordleKeynoard_part1(data.get("answers"),data.get("attempts"),data.get("numbers"))
+    ans = quordleKeynoard_part1(data.get("answers"),data.get("attempts"))
     ans2 = quordleKeynoard_part2(data.get("answers"),data.get("attempts"),data.get("numbers"))
     logging.info("My result :{}".format(ans))
     logging.info("My result :{}".format(ans2))
