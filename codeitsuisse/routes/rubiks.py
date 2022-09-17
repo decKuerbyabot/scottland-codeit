@@ -1,3 +1,23 @@
+def rotate(matrix):
+    n = 3
+    for i in range(n // 2 + n % 2):
+        for j in range(n // 2):
+            tmp = matrix[n - 1 - j][i]
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - j - 1]
+            matrix[n - 1 - i][n - j - 1] = matrix[j][n - 1 - i]
+            matrix[j][n - 1 - i] = matrix[i][j]
+            matrix[i][j] = tmp
+
+def reverse(matrix):
+    n = 3
+    for i in range(n // 2 + n % 2):
+        for j in range(n // 2):
+            tmp = matrix[n - 1 - i][n - j - 1]
+            matrix[n - 1 - i][n - j - 1] = matrix[n - 1 - j][i]
+            matrix[n - 1 - j][i] = matrix[i][j]
+            matrix[i][j] = matrix[j][n - 1 - i]
+            matrix[j][n - 1 - i] = tmp
+
 def RubiksCube(ops,state):
     operation = [*ops]
     u = state["u"]
@@ -159,61 +179,80 @@ def RubiksCube(ops,state):
         u[0][1] = temp12[1]
         u[0][2] = temp12[0]
         
-    if (ops == ""):
-        return state
-    else:
-        for i in range(len(operation)):
-            if (i != (len(operation)-1)):    
-                if (operation[i] == 'U'):
-                    if (operation[i+1] == 'i'):
-                        Ui()
-                        i+=1
-                    else:
-                        U()
-                elif (operation[i] == 'D'):
-                    if (operation[i+1] == 'i'):
-                        Di()
-                        i+=1
-                    else:
-                        D()
-                elif (operation[i] == 'L'):
-                    if (operation[i+1] == 'i'):
-                        Li()
-                        i+=1
-                    else:
-                        L()
-                elif (operation[i] == 'R'):
-                    if (operation[i+1] == 'i'):
-                        Ri()
-                        i+=1
-                    else:
-                        R()
-                elif (operation[i] == 'F'):
-                    if (operation[i+1] == 'i'):
-                        Fi()
-                        i+=1
-                    else:
-                        F()
-                elif (operation[i] == 'B'):
-                    if (operation[i+1] == 'i'):
-                        Bi()
-                        i+=1
-                    else:
-                        B()
-            else:
-                if (operation[i] == 'i'):
-                    break
-                elif (operation[i] == 'U'):
+
+
+    for i in range(len(operation)):
+        if (i != (len(operation)-1)):
+            print(operation[i])
+            if (operation[i] == 'U'):
+                if (operation[i+1] == 'i'):
+                    Ui()
+                    reverse(u)
+                    i+=1
+                else:
+                    rotate(u)
                     U()
-                elif (operation[i] == 'D'):
+            elif (operation[i] == 'D'):
+                if (operation[i+1] == 'i'):
+                    reverse(d)
+                    Di()
+                    i+=1
+                else:
+                    rotate(d)
                     D()
-                elif (operation[i] == 'L'):
+            elif (operation[i] == 'L'):
+                if (operation[i+1] == 'i'):
+                    Li()
+                    reverse(l)
+                    i+=1
+                else:
+                    rotate(l)
                     L()
-                elif (operation[i] == 'R'):
+            elif (operation[i] == 'R'):
+                if (operation[i+1] == 'i'):
+                    Ri()
+                    reverse(r)
+                    i+=1
+                else:
                     R()
-                elif (operation[i] == 'F'):
+                    rotate(r)
+            elif (operation[i] == 'F'):
+                if (operation[i+1] == 'i'):
+                    reverse(f)
+                    Fi()
+                    i+=1
+                else:
+                    rotate(f)
                     F()
-                elif (operation[i] == 'B'):
+            elif (operation[i] == 'B'):
+                if (operation[i+1] == 'i'):
+                    reverse(b)
+                    Bi()
+                    i+=1
+                else:
+                    rotate(b)
                     B()
-        dict={"u": u, "l": l, "f": f, "r": r, "b": b, "d": d}
-        return dict
+        else:
+
+            if (operation[i] == 'i'):
+                pass
+            elif (operation[i] == 'U'):
+                rotate(u)
+                U()
+            elif (operation[i] == 'D'):
+                rotate(d)
+                D()
+            elif (operation[i] == 'L'):
+                rotate(l)
+                L()
+            elif (operation[i] == 'R'):
+                rotate(r)
+                R()
+            elif (operation[i] == 'F'):
+                rotate(f)
+                F()
+            elif (operation[i] == 'B'):
+                rotate(b)
+                B()
+    dict={"u": u, "l": l, "f": f, "r": r, "b": b, "d": d}
+    return dict
